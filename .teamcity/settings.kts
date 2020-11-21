@@ -1,6 +1,7 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
+import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -29,6 +30,8 @@ version = "2020.2"
 project {
 
     buildType(Build)
+
+    subProject(TestMute)
 }
 
 object Build : BuildType({
@@ -47,5 +50,22 @@ object Build : BuildType({
     triggers {
         vcs {
         }
+    }
+})
+
+
+object TestMute : Project({
+    name = "Test Mute"
+
+    vcsRoot(TestMute_HttpsGithubComIyankeTestMuteRefsHeadsMaster)
+})
+
+object TestMute_HttpsGithubComIyankeTestMuteRefsHeadsMaster : GitVcsRoot({
+    name = "https://github.com/iyanke/test_mute#refs/heads/master"
+    url = "https://github.com/iyanke/test_mute"
+    branch = "refs/heads/master"
+    authMethod = password {
+        userName = "iyanke"
+        password = "credentialsJSON:0a33f2ad-5f87-44fa-ba1c-aa334149e7a5"
     }
 })
