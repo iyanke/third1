@@ -1,4 +1,5 @@
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
+import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
@@ -67,6 +68,14 @@ object TestMute_Build : BuildType({
 
     vcs {
         root(TestMute_HttpsGithubComIyankeTestMuteRefsHeadsMaster)
+    }
+
+    steps {
+        maven {
+            goals = "clean test"
+            pomLocation = ".teamcity/pom.xml"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+        }
     }
 
     triggers {
