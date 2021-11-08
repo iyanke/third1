@@ -26,7 +26,7 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 'Debug' option is available in the context menu for the task.
 */
 
-version = "2020.2"
+version = "2021.2"
 
 project {
 
@@ -86,6 +86,7 @@ object TestMute_Build : BuildType({
 
     triggers {
         vcs {
+            enabled = false
         }
     }
 })
@@ -98,4 +99,5 @@ object TestMute_HttpsGithubComIyankeTestMuteRefsHeadsMaster : GitVcsRoot({
         userName = "iyanke"
         password = "credentialsJSON:0a33f2ad-5f87-44fa-ba1c-aa334149e7a5"
     }
+    param("useAlternates", "true")
 })
